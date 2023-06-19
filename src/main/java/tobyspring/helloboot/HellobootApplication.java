@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,18 @@ import jakarta.servlet.http.HttpServletResponse;
 public class HellobootApplication {
 
 	public static void main(String[] args) {
+		
+		GenericApplicationContext applicationContext = new GenericApplicationContext();
+		applicationContext.registerBean(HelloController.class);
+		applicationContext.refresh();
+
+		
 		/**
 		 * 서블릿 컨테이너 띄우기
 		 * TomcatServletWebServerFactory : 스프링 부트가 제공하는 내장형 톰캣의 초기화 작업과 설정 지원 클래스
 		 */
 		TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
 		WebServer webServer = serverFactory.getWebServer(servletContext -> {
-			HelloController helloController = new HelloController();
 			
 			servletContext.addServlet("frontController", new HttpServlet()
 			{
@@ -38,14 +44,11 @@ public class HellobootApplication {
 						// 서블릿 요청 처리
 						String name = req.getParameter("name");
 						
+						HelloController helloController = applicationContext.getBean(HelloController.class);
 						String ret = helloController.hello(name);
 						
-						resp.setStatus(HttpStatus.OK.value());
-						resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+						resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
 						resp.getWriter().println(ret);
-					}
-					else if (req.getRequestURI().equals("/user")) {
-					
 					}else
 					{
 						resp.setStatus(HttpStatus.NOT_FOUND.value());
