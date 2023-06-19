@@ -23,6 +23,8 @@ public class HellobootApplication {
 		 */
 		TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
 		WebServer webServer = serverFactory.getWebServer(servletContext -> {
+			HelloController helloController = new HelloController();
+			
 			servletContext.addServlet("frontController", new HttpServlet()
 			{
 				@Override
@@ -36,9 +38,11 @@ public class HellobootApplication {
 						// 서블릿 요청 처리
 						String name = req.getParameter("name");
 						
+						String ret = helloController.hello(name);
+						
 						resp.setStatus(HttpStatus.OK.value());
 						resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-						resp.getWriter().println("Hello Servlet ! " + name);
+						resp.getWriter().println(ret);
 					}
 					else if (req.getRequestURI().equals("/user")) {
 					
