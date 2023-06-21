@@ -31,4 +31,18 @@ public class HelloApiTest
 		
 		
 	}
+	
+	@Test
+	void failsHelloApi()
+	{
+		// http://localhost:8080/hello?name=hyejin
+		// HTTPie
+		TestRestTemplate rest = new TestRestTemplate();
+		
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name=", String.class );
+		
+		// Response 검증
+		// status 200
+		assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }
