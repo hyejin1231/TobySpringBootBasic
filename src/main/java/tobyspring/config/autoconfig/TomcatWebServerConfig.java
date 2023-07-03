@@ -22,15 +22,13 @@ import tobyspring.config.MyAutoConfiguration;
 @MyAutoConfiguration
 public class TomcatWebServerConfig
 {
-	@Value("${contextPath}")
-	String contextPath;
-	
 	@Bean("tomcatWebServerFactory")
 	@ConditionalOnMissingBean // 그 다음 사용자가 관련 빈을 만든게 있는지 확인해보고 만약 없다면 Bean으로 생성해달라... !
-	public ServletWebServerFactory servletWebServerFactory()
+	public ServletWebServerFactory servletWebServerFactory(ServerProperties serverProperties)
 	{
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
-		factory.setContextPath(this.contextPath);
+		factory.setContextPath(serverProperties.getContextPath());
+		factory.setPort(serverProperties.getPort());
 		return factory;
 	}
 	
@@ -42,4 +40,5 @@ public class TomcatWebServerConfig
 //			return ClassUtils.isPresent("org.apache.catalina.startup.Tomcat", context.getClassLoader());
 //		}
 //	}
+
 }
