@@ -24,7 +24,9 @@ public class TomcatWebServerConfig
 	@ConditionalOnMissingBean // 그 다음 사용자가 관련 빈을 만든게 있는지 확인해보고 만약 없다면 Bean으로 생성해달라... !
 	public ServletWebServerFactory servletWebServerFactory()
 	{
-		return new TomcatServletWebServerFactory();
+		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+		factory.setContextPath("/app");
+		return factory;
 	}
 	
 //	static class TomcatCondition implements Condition
