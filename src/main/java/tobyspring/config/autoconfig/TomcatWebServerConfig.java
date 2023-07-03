@@ -9,17 +9,21 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.ClassUtils;
 
 import tobyspring.config.ConditionalMyOnClass;
+import tobyspring.config.EnableMyConfigurationProperties;
 import tobyspring.config.MyAutoConfiguration;
 
 //@Configuration
 //@Conditional(TomcatWebServerConfig.TomcatCondition.class)
 @ConditionalMyOnClass("org.apache.catalina.startup.Tomcat") // 우선 Tomcat 라이브러리가 있는지 1차로 확인해보고..
 @MyAutoConfiguration
+@EnableMyConfigurationProperties(ServerProperties.class)
+//@Import({ServerProperties.class})
 public class TomcatWebServerConfig
 {
 	@Bean("tomcatWebServerFactory")
