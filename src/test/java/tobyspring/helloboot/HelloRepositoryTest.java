@@ -13,11 +13,11 @@ public class HelloRepositoryTest
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
-	@BeforeEach
-	void init()
-	{
-		jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS HELLO(NAME VARCHAR(50) PRIMARY KEY, COUNT INT)");
-	}
+//	@BeforeEach
+//	void init()
+//	{
+//		jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS HELLO(NAME VARCHAR(50) PRIMARY KEY, COUNT INT)");
+//	}
 	@Test
 	void findHelloFailed()
 	{
