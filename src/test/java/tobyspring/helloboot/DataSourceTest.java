@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
-@ExtendWith(SpringExtension.class) // 스프링 컨테이너 테스트가 가능하도록 함!
-@ContextConfiguration(classes = HellobootApplication.class)
-@TestPropertySource("classpath:/application.properties")
+//@ExtendWith(SpringExtension.class) // 스프링 컨테이너 테스트가 가능하도록 함!
+//@ContextConfiguration(classes = HellobootApplication.class)
+//@TestPropertySource("classpath:/application.properties")
+@HelloBootTest
 public class DataSourceTest
 {
 	@Autowired DataSource dataSource;
