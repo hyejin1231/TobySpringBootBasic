@@ -1,15 +1,16 @@
 package tobyspring.helloboot;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class HelloApiTest
 {
 	@Test
@@ -19,7 +20,7 @@ public class HelloApiTest
 		// HTTPie
 		TestRestTemplate rest = new TestRestTemplate();
 		
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name={name}", String.class, "hyejin");
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:9090/app/hello?name={name}", String.class, "hyejin");
 		
 		// Response 검증
 		// status 200
@@ -39,7 +40,7 @@ public class HelloApiTest
 		// HTTPie
 		TestRestTemplate rest = new TestRestTemplate();
 		
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name=", String.class );
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:9090/app/hello?name=", String.class );
 		
 		// Response 검증
 		// status 200
