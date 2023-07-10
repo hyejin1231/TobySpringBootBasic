@@ -19,7 +19,7 @@ public class HelloApiTest
 		// HTTPie
 		TestRestTemplate rest = new TestRestTemplate();
 		
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name={name}", String.class, "hyejin");
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:9090/app/hello?name={name}", String.class, "hyejin");
 		
 		// Response 검증
 		// status 200
@@ -39,7 +39,7 @@ public class HelloApiTest
 		// HTTPie
 		TestRestTemplate rest = new TestRestTemplate();
 		
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name=", String.class );
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:9090/app/hello?name=", String.class );
 		
 		// Response 검증
 		// status 200
